@@ -138,6 +138,8 @@ class MainWindowShow(QMainWindow, Ui_MainWindow):
         self.pushButton.setStyleSheet('''QPushButton{background-color:rgb(0,0,0);}''')
         self.pushButton_2.setEnabled(False)
         self.pushButton_2.setStyleSheet('''QPushButton{background-color:rgb(0,0,0);}''')
+        self.pushButton.setText("")
+        self.pushButton_2.setText("")
         word_reader = WordSetReader.WordSetReader(self.Controler.Input_FileName)
         # word_list includes the return lists of the csv file
         word_list = word_reader.ReadFromWordSet()
@@ -237,7 +239,7 @@ if __name__ == '__main__':
     # set font size
     window_1.Controler.SetFontSize(100)
     # set circle size
-    window_1.Controler.SetCircleSize(100)
+    window_1.Controler.SetCircleSize(200)
     window_1.Controler.SetCircleGap(10)
 
     # initialize, and set file name and directory
