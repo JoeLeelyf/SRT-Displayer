@@ -22,7 +22,7 @@ class WordSetReader:
 
     def ReadFromWordSet(self):
         os.chdir(self.Dir_Name)
-        with open(self.File_Name, mode='r') as CsvFile:
+        with open(self.File_Name, mode='r', encoding="utf-8") as CsvFile:
             Reader = csv.reader(CsvFile)
             # 此处若直接返回Reader，将提示I/O on closed file错误
             # 因为在主函数中调用时此文件已关闭
