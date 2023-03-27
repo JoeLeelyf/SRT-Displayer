@@ -4,6 +4,7 @@
 
 import csv
 import time
+from datetime import datetime
 import os
 
 
@@ -27,10 +28,9 @@ class OutputToCSV:
         self.Dir_File_Name = os.path.join(self.Dir_Name, self.File_Name)
         self.Dir_File_Name += '.csv'
 
-    def OutputToCSV(self, BasicInfo, Str, Format='%m-%d-%H-%M-%S'):
+    def OutputToCSV(self, BasicInfo, Str, Format='%m-%d-%H-%M-%S.%f'):
         TimeStamp = time.time()
-        FormatTime = time.strftime(
-            Format, time.localtime(time.time()))
+        FormatTime = datetime.now().strftime('%m-%d-%H-%M-%S.%f')[:-3]
         os.chdir(self.Dir_Name)
         Output_List = [TimeStamp, FormatTime, BasicInfo, Str]
         with open(self.File_Name, mode="a+", encoding="utf-8-sig", newline='') as CsvFile:

@@ -2,6 +2,7 @@
 
 import sys
 import time
+from datetime import datetime
 import os
 import threading
 
@@ -144,11 +145,13 @@ class MainWindowShow(QMainWindow, Ui_MainWindow):
         # word_list includes the return lists of the csv file
         word_list = word_reader.ReadFromWordSet()
 
+        begin_time = datetime.now().strftime('%m-%d-%H-%M-%S.%f')[:-3]
+
         for List in word_list:
             # init info about the word from List
             word = List[1]
             word_num = len(word)
-            output_csv = OutputToCSV.OutputToCSV(self.Controler.Output_DirName, word)
+            output_csv = OutputToCSV.OutputToCSV(self.Controler.Output_DirName, begin_time)
 
             # play audio while display word, at different thread
             audio_thread = threading.Thread(target=self.play_audio,
@@ -157,6 +160,7 @@ class MainWindowShow(QMainWindow, Ui_MainWindow):
             audio_thread.start()
 
             # display word
+            output_csv.OutputToCSV("Display Start", word)
             self.label.setFont(QFont("Times", self.Controler.Font_Size, QFont.Bold))
             self.label.setStyleSheet('''QLabel{color:rgb(255,255,255);}''')
             self.label.setText(word)
@@ -164,6 +168,7 @@ class MainWindowShow(QMainWindow, Ui_MainWindow):
             time.sleep(self.Controler.Display_Dur)
             QApplication.processEvents()
             self.label.clear()
+            output_csv.OutputToCSV("Display End", word)
 
             # wait for Wait_Dur1
             self.display_circle(status="wait", dur_time=self.Controler.Wait_Dur1, word_num=word_num)
